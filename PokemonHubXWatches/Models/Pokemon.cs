@@ -40,7 +40,9 @@ namespace PokemonHubXWatches.Models
         public string PokemonImage { get; set; } // URL or Path to the image file
 
         // Relationships
-        public ICollection<Build> Builds { get; set; }
+        public ICollection<Build> Builds { get; set; } = new List<Build>();
+        public int? WatchID { get; set; }
+        public virtual Watch? ThemedWatch { get; set; }
     }
 
     public class PokemonDTO
@@ -55,8 +57,7 @@ namespace PokemonHubXWatches.Models
         public int PokemonSpAttack { get; set; }
         public int PokemonSpDefense { get; set; }
         public int PokemonCDR { get; set; }
-        public string PokemonImage { get; set; } // URL or Path to the image file
-
-        public List<BuildDTO> Builds { get; set; } = new List<BuildDTO>();
+        public string PokemonImage { get; set; }
+        public WatchDTO? ThemedWatch { get; set; }
     }
 }

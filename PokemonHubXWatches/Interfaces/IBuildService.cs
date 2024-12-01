@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using PokemonHubXWatches.Models;
+﻿using PokemonHubXWatches.Models;
 
 namespace PokemonHubXWatches.Interfaces
 {
     public interface IBuildService
     {
-        IEnumerable<BuildDTO> GetAllBuilds();
-        BuildDTO GetBuildById(int id);
-        BuildDTO CreateBuild(BuildDTO build);
-        bool UpdateBuild(BuildDTO build);
-        bool DeleteBuild(int id);
-        BuildDTO CalculateUpdatedStats(int pokemonId, List<int> heldItemIds);
+        Task<IEnumerable<Build>> GetAllAsync();
+        Task<Build?> GetByIdAsync(int id);
+        Task AddAsync(Build build);
+        Task UpdateAsync(Build build);
+        Task DeleteAsync(int id);
     }
 }

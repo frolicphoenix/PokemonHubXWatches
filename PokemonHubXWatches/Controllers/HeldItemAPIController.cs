@@ -2,10 +2,10 @@
 using PokemonHubXWatches.Interfaces;
 using PokemonHubXWatches.Models;
 
-namespace PokemonHubXWatches.API
+namespace PokemonHubXWatches.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class HeldItemAPIController : ControllerBase
     {
         private readonly IHeldItemService _heldItemService;
@@ -15,51 +15,53 @@ namespace PokemonHubXWatches.API
             _heldItemService = heldItemService;
         }
 
-        // GET: api/HeldItemAPI
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var heldItems = _heldItemService.GetAllHeldItems();
+            var heldItems = await _heldItemService.GetAllAsync();
             return Ok(heldItems);
         }
 
-        // GET: api/HeldItemAPI/{id}
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var heldItem = _heldItemService.GetHeldItemById(id);
-            if (heldItem == null) return NotFound();
+            var heldItem = await _heldItemService.GetByIdAsync(id);
+            if (heldItem == null)
+                return NotFound();
             return Ok(heldItem);
         }
 
-        // POST: api/HeldItemAPI
         [HttpPost]
-        public IActionResult Create([FromBody] HeldItemDTO heldItem)
+        public async Task<IActionResult> Create([FromBody] HeldItem heldItem)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            var createdHeldItem = _heldItemService.AddHeldItem(heldItem);
-            return CreatedAtAction(nameof(GetById), new { id = createdHeldItem.HeldItemId }, createdHeldItem);
+            await _heldItemService.AddAsync(heldItem);
+            return CreatedAtAction(nameof(GetById), new { id = heldItem.HeldItemId }, heldItem);
         }
 
-        // PUT: api/HeldItemAPI/{id}
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] HeldItemDTO heldItem)
+        public async Task<IActionResult> Update(int id, [FromBody] HeldItem heldItem)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (id != heldItem.HeldItemId) return BadRequest();
+            if (id != heldItem.HeldItemId)
+                return BadRequest("HeldItem ID mismatch");
 
-            var success = _heldItemService.UpdateHeldItem(heldItem);
-            if (!success) return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _heldItemService.UpdateAsync(heldItem);
             return NoContent();
         }
 
-        // DELETE: api/HeldItemAPI/{id}
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var success = _heldItemService.DeleteHeldItem(id);
-            if (!success) return NotFound();
+            var existingHeldItem = await _heldItemService.GetByIdAsync(id);
+            if (existingHeldItem == null)
+                return NotFound();
+
+            await _heldItemService.DeleteAsync(id);
             return NoContent();
         }
     }

@@ -2,10 +2,10 @@
 using PokemonHubXWatches.Interfaces;
 using PokemonHubXWatches.Models;
 
-namespace PokemonHubXWatches.API
+namespace PokemonHubXWatches.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class PokemonAPIController : ControllerBase
     {
         private readonly IPokemonService _pokemonService;
@@ -15,51 +15,53 @@ namespace PokemonHubXWatches.API
             _pokemonService = pokemonService;
         }
 
-        // GET: api/PokemonAPI
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var pokemons = _pokemonService.GetAllPokemon();
+            var pokemons = await _pokemonService.GetAllAsync();
             return Ok(pokemons);
         }
 
-        // GET: api/PokemonAPI/{id}
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var pokemon = _pokemonService.GetPokemonById(id);
-            if (pokemon == null) return NotFound();
+            var pokemon = await _pokemonService.GetByIdAsync(id);
+            if (pokemon == null)
+                return NotFound();
             return Ok(pokemon);
         }
 
-        // POST: api/PokemonAPI
         [HttpPost]
-        public IActionResult Create([FromBody] PokemonDTO pokemon)
+        public async Task<IActionResult> Create([FromBody] Pokemon pokemon)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            var createdPokemon = _pokemonService.AddPokemon(pokemon);
-            return CreatedAtAction(nameof(GetById), new { id = createdPokemon.PokemonId }, createdPokemon);
+            await _pokemonService.AddAsync(pokemon);
+            return CreatedAtAction(nameof(GetById), new { id = pokemon.PokemonId }, pokemon);
         }
 
-        // PUT: api/PokemonAPI/{id}
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] PokemonDTO pokemon)
+        public async Task<IActionResult> Update(int id, [FromBody] Pokemon pokemon)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (id != pokemon.PokemonId) return BadRequest();
+            if (id != pokemon.PokemonId)
+                return BadRequest("Pokemon ID mismatch");
 
-            var success = _pokemonService.UpdatePokemon(pokemon);
-            if (!success) return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _pokemonService.UpdateAsync(pokemon);
             return NoContent();
         }
 
-        // DELETE: api/PokemonAPI/{id}
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var success = _pokemonService.DeletePokemon(id);
-            if (!success) return NotFound();
+            var existingPokemon = await _pokemonService.GetByIdAsync(id);
+            if (existingPokemon == null)
+                return NotFound();
+
+            await _pokemonService.DeleteAsync(id);
             return NoContent();
         }
     }

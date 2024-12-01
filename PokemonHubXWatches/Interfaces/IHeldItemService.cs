@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using PokemonHubXWatches.Models;
+﻿using PokemonHubXWatches.Models;
 
 namespace PokemonHubXWatches.Interfaces
 {
     public interface IHeldItemService
     {
-        IEnumerable<HeldItemDTO> GetAllHeldItems();
-        HeldItemDTO GetHeldItemById(int id);
-        HeldItemDTO AddHeldItem(HeldItemDTO heldItem);
-        bool UpdateHeldItem(HeldItemDTO heldItem);
-        bool DeleteHeldItem(int id);
+        Task<IEnumerable<HeldItem>> GetAllAsync();
+        Task<HeldItem?> GetByIdAsync(int id);
+        Task AddAsync(HeldItem heldItem);
+        Task UpdateAsync(HeldItem heldItem);
+        Task DeleteAsync(int id);
     }
 }

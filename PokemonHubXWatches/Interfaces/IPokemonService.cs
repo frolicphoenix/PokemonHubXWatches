@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using PokemonHubXWatches.Models;
+﻿using PokemonHubXWatches.Models;
 
 namespace PokemonHubXWatches.Interfaces
 {
     public interface IPokemonService
     {
-        IEnumerable<PokemonDTO> GetAllPokemon();
-        PokemonDTO GetPokemonById(int id);
-        PokemonDTO AddPokemon(PokemonDTO pokemon);
-        bool UpdatePokemon(PokemonDTO pokemon);
-        bool DeletePokemon(int id);
+        Task<IEnumerable<Pokemon>> GetAllAsync();
+        Task<Pokemon?> GetByIdAsync(int id);
+        Task AddAsync(Pokemon pokemon);
+        Task UpdateAsync(Pokemon pokemon);
+        Task DeleteAsync(int id);
     }
 }

@@ -30,7 +30,7 @@ namespace PokemonHubXWatches.Models
         public int PokemonId { get; set; }
         public virtual Pokemon Pokemon { get; set; }
 
-        public ICollection<HeldItem> HeldItems { get; set; }
+        public ICollection<BuildHeldItem> HeldItems { get; set; } = new List<BuildHeldItem>();
     }
 
     public class BuildDTO
@@ -45,7 +45,6 @@ namespace PokemonHubXWatches.Models
 
         public int PokemonId { get; set; }
         public PokemonDTO Pokemon { get; set; }
-
         public List<HeldItemDTO> HeldItems { get; set; } = new List<HeldItemDTO>();
     }
 }

@@ -31,10 +31,10 @@ namespace PokemonHubXWatches.Models
         public int HeldItemCDR { get; set; }
 
         [Required(ErrorMessage = "Image URL is required.")]
-        public string HeldItemImage { get; set; } // URL or Path to the image file
+        public string HeldItemImage { get; set; }
 
         // Relationships
-        public ICollection<Build> Builds { get; set; }
+        public ICollection<BuildHeldItem> Builds { get; set; } = new List<BuildHeldItem>();
     }
 
     public class HeldItemDTO
@@ -47,8 +47,6 @@ namespace PokemonHubXWatches.Models
         public int HeldItemSpAttack { get; set; }
         public int HeldItemSpDefense { get; set; }
         public int HeldItemCDR { get; set; }
-        public string HeldItemImage { get; set; } // URL or Path to the image file
-
-        public List<BuildDTO> Builds { get; set; } = new List<BuildDTO>();
+        public string HeldItemImage { get; set; }
     }
 }
