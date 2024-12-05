@@ -10,12 +10,21 @@ namespace PokemonHubXWatches.Controllers.API
     {
         private readonly IPokemonService _pokemonService;
 
+        /// <summary>
+        /// Initializes a new instance of the PokemonAPIController.
+        /// </summary>
+        /// <param name="pokemonService">The Pokemon service instance.</param>
         public PokemonAPIController(IPokemonService pokemonService)
         {
             _pokemonService = pokemonService ?? throw new ArgumentNullException(nameof(pokemonService));
         }
 
         // GET: api/PokemonAPI
+        /// <summary>
+        /// Gets all Pokemon from the database.
+        /// </summary>
+        /// <returns>A list of PokemonDTOs.</returns>
+        /// <example>GET api/pokemonapi</example>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PokemonDTO>>> GetPokemons()
         {
@@ -59,6 +68,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/PokemonAPI/5
+        /// <summary>
+        /// Gets a specific Pokemon by ID.
+        /// </summary>
+        /// <param name="id">The ID of the Pokemon.</param>
+        /// <returns>A PokemonDTO if found.</returns>
+        /// <example>GET api/pokemonapi/5</example>
         [HttpGet("{id}")]
         public async Task<ActionResult<PokemonDTO>> GetPokemon(int id)
         {
@@ -107,6 +122,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // POST: api/PokemonAPI
+        /// <summary>
+        /// Creates a new Pokemon.
+        /// </summary>
+        /// <param name="pokemon">The Pokemon data to create.</param>
+        /// <returns>The created PokemonDTO.</returns>
+        /// <example>POST api/pokemonapi</example>
         [HttpPost]
         public async Task<ActionResult<PokemonDTO>> CreatePokemon([FromBody] Pokemon pokemon)
         {
@@ -144,6 +165,13 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // PUT: api/PokemonAPI/5
+        /// <summary>
+        /// Updates an existing Pokemon.
+        /// </summary>
+        /// <param name="id">The ID of the Pokemon to update.</param>
+        /// <param name="pokemon">The updated Pokemon data.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>PUT api/pokemonapi/5</example>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePokemon(int id, [FromBody] Pokemon pokemon)
         {
@@ -174,6 +202,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // DELETE: api/PokemonAPI/5
+        /// <summary>
+        /// Deletes a Pokemon.
+        /// </summary>
+        /// <param name="id">The ID of the Pokemon to delete.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>DELETE api/pokemonapi/5</example>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePokemon(int id)
         {
@@ -194,6 +228,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/PokemonAPI/top/5
+        /// <summary>
+        /// Gets the top Pokemon by specified count.
+        /// </summary>
+        /// <param name="count">Number of Pokemon to return.</param>
+        /// <returns>A list of PokemonDTOs.</returns>
+        /// <example>GET api/pokemonapi/top/5</example>
         [HttpGet("top/{count}")]
         public async Task<ActionResult<IEnumerable<PokemonDTO>>> GetTopPokemons(int count)
         {
@@ -218,6 +258,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/PokemonAPI/5/helditems
+        /// <summary>
+        /// Gets all held items for a specific Pokemon.
+        /// </summary>
+        /// <param name="id">The Pokemon ID.</param>
+        /// <returns>A list of HeldItemDTOs.</returns>
+        /// <example>GET api/pokemonapi/5/helditems</example>
         [HttpGet("{id}/helditems")]
         public async Task<ActionResult<IEnumerable<HeldItemDTO>>> GetPokemonHeldItems(int id)
         {

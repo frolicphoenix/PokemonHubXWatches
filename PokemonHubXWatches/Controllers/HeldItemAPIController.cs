@@ -10,12 +10,21 @@ namespace PokemonHubXWatches.Controllers.API
     {
         private readonly IHeldItemService _heldItemService;
 
+        /// <summary>
+        /// Initializes a new instance of the HeldItemAPIController.
+        /// </summary>
+        /// <param name="heldItemService">The HeldItem service instance.</param>
         public HeldItemAPIController(IHeldItemService heldItemService)
         {
             _heldItemService = heldItemService ?? throw new ArgumentNullException(nameof(heldItemService));
         }
 
         // GET: api/HeldItemAPI
+        /// <summary>
+        /// Gets all held items from the database.
+        /// </summary>
+        /// <returns>A list of HeldItemDTOs.</returns>
+        /// <example>GET api/helditemapi</example>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HeldItemDTO>>> GetHeldItems()
         {
@@ -46,6 +55,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/HeldItemAPI/5
+        /// <summary>
+        /// Gets a specific held item by ID.
+        /// </summary>
+        /// <param name="id">The ID of the held item.</param>
+        /// <returns>A HeldItemDTO if found.</returns>
+        /// <example>GET api/helditemapi/5</example>
         [HttpGet("{id}")]
         public async Task<ActionResult<HeldItemDTO>> GetHeldItem(int id)
         {
@@ -81,6 +96,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // POST: api/HeldItemAPI
+        /// <summary>
+        /// Creates a new held item.
+        /// </summary>
+        /// <param name="heldItem">The held item data to create.</param>
+        /// <returns>The created HeldItemDTO.</returns>
+        /// <example>POST api/helditemapi</example>
         [HttpPost]
         public async Task<ActionResult<HeldItemDTO>> CreateHeldItem([FromBody] HeldItem heldItem)
         {
@@ -116,6 +137,13 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // PUT: api/HeldItemAPI/5
+        /// <summary>
+        /// Updates an existing held item.
+        /// </summary>
+        /// <param name="id">The ID of the held item to update.</param>
+        /// <param name="heldItem">The updated held item data.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>PUT api/helditemapi/5</example>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateHeldItem(int id, [FromBody] HeldItem heldItem)
         {
@@ -146,6 +174,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // DELETE: api/HeldItemAPI/5
+        /// <summary>
+        /// Deletes a held item.
+        /// </summary>
+        /// <param name="id">The ID of the held item to delete.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>DELETE api/helditemapi/5</example>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHeldItem(int id)
         {
@@ -166,6 +200,14 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/HeldItemAPI/5/builds
+        /// <summary>
+        /// Gets all builds that use a specific held item.
+        /// </summary>
+        /// <param name="id">The ID of the held item.</param>
+        /// <returns>A list of BuildDTOs that use the specified held item.</returns>
+        /// <example>
+        /// GET api/helditemapi/5/builds
+        /// </example>
         [HttpGet("{id}/builds")]
         public async Task<ActionResult<IEnumerable<BuildDTO>>> GetBuildsForHeldItem(int id)
         {

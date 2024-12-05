@@ -12,6 +12,12 @@ namespace PokemonHubXWatches.Controllers.API
         private readonly IPokemonService _pokemonService;
         private readonly IHeldItemService _heldItemService;
 
+        /// <summary>
+        /// Initializes a new instance of the BuildAPIController.
+        /// </summary>
+        /// <param name="buildService">The Build service instance.</param>
+        /// <param name="pokemonService">The Pokemon service instance.</param>
+        /// <param name="heldItemService">The Held Item service instance.</param>
         public BuildAPIController(
             IBuildService buildService,
             IPokemonService pokemonService,
@@ -23,6 +29,11 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/BuildAPI
+        /// <summary>
+        /// Gets all builds from the database.
+        /// </summary>
+        /// <returns>A list of BuildDTOs.</returns>
+        /// <example>GET api/buildapi</example>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BuildDTO>>> GetBuilds()
         {
@@ -62,6 +73,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // GET: api/BuildAPI/5
+        /// <summary>
+        /// Gets a specific build by ID.
+        /// </summary>
+        /// <param name="id">The ID of the build.</param>
+        /// <returns>A BuildDTO if found.</returns>
+        /// <example>GET api/buildapi/5</example>
         [HttpGet("{id}")]
         public async Task<ActionResult<BuildDTO>> GetBuild(int id)
         {
@@ -106,6 +123,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // POST: api/BuildAPI
+        /// <summary>
+        /// Creates a new build.
+        /// </summary>
+        /// <param name="build">The build data to create.</param>
+        /// <returns>The created BuildDTO.</returns>
+        /// <example>POST api/buildapi</example>
         [HttpPost]
         public async Task<ActionResult<BuildDTO>> CreateBuild([FromBody] Build build)
         {
@@ -144,6 +167,13 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // PUT: api/BuildAPI/5
+        /// <summary>
+        /// Updates an existing build.
+        /// </summary>
+        /// <param name="id">The ID of the build to update.</param>
+        /// <param name="build">The updated build data.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>PUT api/buildapi/5</example>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBuild(int id, [FromBody] Build build)
         {
@@ -174,6 +204,12 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // DELETE: api/BuildAPI/5
+        /// <summary>
+        /// Deletes a build.
+        /// </summary>
+        /// <param name="id">The ID of the build to delete.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>DELETE api/buildapi/5</example>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuild(int id)
         {
@@ -194,6 +230,15 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // POST: api/BuildAPI/5/helditems/3
+        /// <summary>
+        /// Adds a held item to a build.
+        /// </summary>
+        /// <param name="buildId">The ID of the build to add the held item to.</param>
+        /// <param name="heldItemId">The ID of the held item to add.</param>
+        /// <returns>The updated BuildDTO with the new held item added.</returns>
+        /// <example>
+        /// POST api/buildapi/5/helditems/3
+        /// </example>
         [HttpPost("{buildId}/helditems/{heldItemId}")]
         public async Task<ActionResult<BuildDTO>> AddHeldItemToBuild(int buildId, int heldItemId)
         {
@@ -242,6 +287,15 @@ namespace PokemonHubXWatches.Controllers.API
         }
 
         // DELETE: api/BuildAPI/5/helditems/3
+        /// <summary>
+        /// Removes a held item from a build.
+        /// </summary>
+        /// <param name="buildId">The ID of the build to remove the held item from.</param>
+        /// <param name="heldItemId">The ID of the held item to remove.</param>
+        /// <returns>No content if successful.</returns>
+        /// <example>
+        /// DELETE api/buildapi/5/helditems/3
+        /// </example>
         [HttpDelete("{buildId}/helditems/{heldItemId}")]
         public async Task<IActionResult> RemoveHeldItemFromBuild(int buildId, int heldItemId)
         {
