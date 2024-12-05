@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.HeldItemViewModel
+
 @{
+    ViewData["Title"] = "Delete Held Item";
 }
+
+<div class="container mt-4">
+    <h1>Delete Held Item</h1>
+    <div class="alert alert-danger">
+        <h4>Are you sure you want to delete this Held Item?</h4>
+    </div>
+
+    <div class="card mb-4">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@Model.HeldItemImage" class="img-fluid rounded-start" alt="@Model.HeldItemName">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">@Model.HeldItemName</h2>
+                    <dl class="row">
+                        <dt class="col-sm-4">Category</dt>
+                        <dd class="col-sm-8">@Model.Category</dd>
+
+                        <dt class="col-sm-4">Description</dt>
+                        <dd class="col-sm-8">@Model.Description</dd>
+
+                        <dt class="col-sm-4">HP Bonus</dt>
+                        <dd class="col-sm-8">+@Model.HeldItemHP</dd>
+
+                        <dt class="col-sm-4">Attack Bonus</dt>
+                        <dd class="col-sm-8">+@Model.HeldItemAttack</dd>
+
+                        <dt class="col-sm-4">Defense Bonus</dt>
+                        <dd class="col-sm-8">+@Model.HeldItemDefense</dd>
+
+                        <dt class="col-sm-4">Special Attack Bonus</dt>
+                        <dd class="col-sm-8">+@Model.HeldItemSpAttack</dd>
+
+                        <dt class="col-sm-4">Special Defense Bonus</dt>
+                        <dd class="col-sm-8">+@Model.HeldItemSpDefense</dd>
+
+                        <dt class="col-sm-4">CDR Bonus</dt>
+                        <dd class="col-sm-8">+@Model.HeldItemCDR%</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="HeldItemId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

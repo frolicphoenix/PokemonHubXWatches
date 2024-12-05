@@ -1,5 +1,119 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.HeldItemViewModel
+
 @{
+    ViewData["Title"] = "Held Item Details";
 }
+
+<div class="container mt-4">
+    <h1>Held Item Details</h1>
+
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@Model.HeldItemImage" class="img-fluid rounded-start" alt="@Model.HeldItemName">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">@Model.HeldItemName</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Category</dt>
+                                <dd class="col-sm-8">@Model.Category</dd>
+
+                                <dt class="col-sm-4">Description</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Bonus Stats</h4>
+                            <div class="stats-container">
+                                <div class="stat-bar">
+                                    <span>HP</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: @(Model.HeldItemHP)%">
+                                            +@Model.HeldItemHP
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Attack</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" style="width: @(Model.HeldItemAttack)%">
+                                            +@Model.HeldItemAttack
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Defense</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" style="width: @(Model.HeldItemDefense)%">
+                                            +@Model.HeldItemDefense
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Sp.Attack</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" style="width: @(Model.HeldItemSpAttack)%">
+                                            +@Model.HeldItemSpAttack
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Sp.Defense</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" style="width: @(Model.HeldItemSpDefense)%">
+                                            +@Model.HeldItemSpDefense
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>CDR</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-secondary" style="width: @Model.HeldItemCDR%">
+                                            +@Model.HeldItemCDR%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.HeldItemId" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+<style>
+    .stats-container {
+        margin-top: 20px;
+    }
+
+    .stat-bar {
+        margin-bottom: 15px;
+    }
+
+        .stat-bar span {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+
+    .progress {
+        display: inline-block;
+        width: calc(100% - 110px);
+        height: 25px;
+    }
+
+    .progress-bar {
+        line-height: 25px;
+        color: white;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    }
+</style>

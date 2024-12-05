@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.ReservationViewModel
+
 @{
+    ViewData["Title"] = "Reservation Details";
 }
+
+<div class="container mt-4">
+    <h1>Reservation Details</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Reservation #@Model.ReservationID</h2>
+            <dl class="row">
+                <dt class="col-sm-3">Watch</dt>
+                <dd class="col-sm-9">@Model.WatchName</dd>
+
+                <dt class="col-sm-3">User</dt>
+                <dd class="col-sm-9">@Model.UserName</dd>
+
+                <dt class="col-sm-3">Reservation Date</dt>
+                <dd class="col-sm-9">@Model.ReservationDate.ToString("g")</dd>
+
+                <dt class="col-sm-3">End Date</dt>
+                <dd class="col-sm-9">@Model.EndDate.ToString("g")</dd>
+
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">
+                    <span class="badge @(Model.Status switch {
+                        ReservationStatus.Pending => "bg-warning",
+                        ReservationStatus.Confirmed => "bg-success",
+                        ReservationStatus.Cancelled => "bg-danger",
+                        _ => "bg-secondary"
+                    })">
+                        @Model.Status
+                    </span>
+                </dd>
+
+                <dt class="col-sm-3">Total Price</dt>
+                <dd class="col-sm-9">$@Model.TotalPrice.ToString("F2")</dd>
+
+                <dt class="col-sm-3">Notes</dt>
+                <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Notes) ? "N/A" : Model.Notes)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ReservationID" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

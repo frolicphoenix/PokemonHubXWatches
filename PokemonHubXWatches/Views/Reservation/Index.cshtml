@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<PokemonHubXWatches.ViewModels.ReservationViewModel>
+
 @{
+    ViewData["Title"] = "Reservations";
 }
+
+<div class="container mt-4">
+    <h1>Reservations</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Reservation</a>
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Watch</th>
+                    <th>User</th>
+                    <th>Reservation Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.WatchName</td>
+                        <td>@item.UserName</td>
+                        <td>@item.ReservationDate.ToString("g")</td>
+                        <td>@item.EndDate.ToString("g")</td>
+                        <td>
+                            <span class="badge @(item.Status switch {
+                                ReservationStatus.Pending => "bg-warning",
+                                ReservationStatus.Confirmed => "bg-success",
+                                ReservationStatus.Cancelled => "bg-danger",
+                                _ => "bg-secondary"
+                            })">
+                                @item.Status
+                            </span>
+                        </td>
+                        <td>$@item.TotalPrice.ToString("F2")</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Details" asp-route-id="@item.ReservationID" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Edit" asp-route-id="@item.ReservationID" class="btn btn-warning btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.ReservationID" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

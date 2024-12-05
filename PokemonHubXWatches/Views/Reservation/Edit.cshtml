@@ -1,5 +1,79 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.ReservationViewModel
+
 @{
+    ViewData["Title"] = "Edit Reservation";
+}
+
+<div class="container mt-4">
+    <h1>Edit Reservation</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ReservationID" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="WatchID" class="control-label">Watch</label>
+                    <select asp-for="WatchID" asp-items="ViewBag.Watches" class="form-control">
+                        <option value="">Select Watch</option>
+                    </select>
+                    <span asp-validation-for="WatchID" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="UserId" class="control-label">User</label>
+                    <select asp-for="UserId" asp-items="ViewBag.Users" class="form-control">
+                        <option value="">Select User</option>
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ReservationDate" class="control-label"></label>
+                    <input asp-for="ReservationDate" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="ReservationDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="@ReservationStatus.Pending">Pending</option>
+                        <option value="@ReservationStatus.Confirmed">Confirmed</option>
+                        <option value="@ReservationStatus.Cancelled">Cancelled</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <input asp-for="TotalPrice" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

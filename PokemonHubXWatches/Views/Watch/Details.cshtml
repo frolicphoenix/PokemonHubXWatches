@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.WatchViewModel
+
 @{
+    ViewData["Title"] = "Watch Details";
 }
+
+<div class="container mt-4">
+    <h1>Watch Details</h1>
+
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@Model.ImageUrl" class="img-fluid rounded-start" alt="@Model.Name">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">@Model.Name</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Description</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+
+                                <dt class="col-sm-4">Price</dt>
+                                <dd class="col-sm-8">$@Model.Price.ToString("F2")</dd>
+
+                                <dt class="col-sm-4">Status</dt>
+                                <dd class="col-sm-8">
+                                    <span class="@(Model.IsAvailable ? "text-success" : "text-danger")">
+                                        @(Model.IsAvailable ? "Available" : "Not Available")
+                                    </span>
+                                </dd>
+
+                                <dt class="col-sm-4">Stock</dt>
+                                <dd class="col-sm-8">@Model.StockQuantity</dd>
+
+                                @if (!string.IsNullOrEmpty(Model.ThemedPokemonName))
+                                {
+                                    <dt class="col-sm-4">Pokemon Theme</dt>
+                                    <dd class="col-sm-8">@Model.ThemedPokemonName</dd>
+                                }
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.WatchID" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

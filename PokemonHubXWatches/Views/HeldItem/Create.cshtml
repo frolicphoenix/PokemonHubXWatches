@@ -1,5 +1,109 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.HeldItemViewModel
+
 @{
+    ViewData["Title"] = "Create Held Item";
+}
+
+<div class="container mt-4">
+    <h1>Create Held Item</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="HeldItemName" class="control-label"></label>
+                    <input asp-for="HeldItemName" class="form-control" />
+                    <span asp-validation-for="HeldItemName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Category" class="control-label"></label>
+                    <select asp-for="Category" class="form-control">
+                        <option value="">Select Category</option>
+                        <option value="Attack">Attack</option>
+                        <option value="Defense">Defense</option>
+                        <option value="Support">Support</option>
+                        <option value="Special">Special</option>
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="HeldItemHP" class="control-label"></label>
+                            <input asp-for="HeldItemHP" class="form-control" type="number" />
+                            <span asp-validation-for="HeldItemHP" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="HeldItemAttack" class="control-label"></label>
+                            <input asp-for="HeldItemAttack" class="form-control" type="number" />
+                            <span asp-validation-for="HeldItemAttack" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="HeldItemDefense" class="control-label"></label>
+                            <input asp-for="HeldItemDefense" class="form-control" type="number" />
+                            <span asp-validation-for="HeldItemDefense" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="HeldItemSpAttack" class="control-label"></label>
+                            <input asp-for="HeldItemSpAttack" class="form-control" type="number" />
+                            <span asp-validation-for="HeldItemSpAttack" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="HeldItemSpDefense" class="control-label"></label>
+                            <input asp-for="HeldItemSpDefense" class="form-control" type="number" />
+                            <span asp-validation-for="HeldItemSpDefense" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="HeldItemCDR" class="control-label"></label>
+                            <input asp-for="HeldItemCDR" class="form-control" type="number" />
+                            <span asp-validation-for="HeldItemCDR" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="HeldItemImage" class="control-label"></label>
+                    <input asp-for="HeldItemImage" class="form-control" />
+                    <span asp-validation-for="HeldItemImage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

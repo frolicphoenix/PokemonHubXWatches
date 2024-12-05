@@ -1,5 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<PokemonHubXWatches.ViewModels.WatchViewModel>
+
 @{
+    ViewData["Title"] = "Watches";
 }
+
+<div class="container mt-4">
+    <h1>Watches</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Watch</a>
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="watch-details">
+                            <div class="detail-item">
+                                <span>Price:</span>
+                                <span>$@item.Price.ToString("F2")</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Status:</span>
+                                <span class="@(item.IsAvailable ? "text-success" : "text-danger")">
+                                    @(item.IsAvailable ? "Available" : "Not Available")
+                                </span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Stock:</span>
+                                <span>@item.StockQuantity</span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(item.ThemedPokemonName))
+                            {
+                                <div class="detail-item">
+                                    <span>Pokemon Theme:</span>
+                                    <span>@item.ThemedPokemonName</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Details" asp-route-id="@item.WatchID" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.WatchID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.WatchID" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .watch-details {
+        margin-top: 15px;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        padding: 5px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+
+        .detail-item span:first-child {
+            font-weight: bold;
+        }
+</style>

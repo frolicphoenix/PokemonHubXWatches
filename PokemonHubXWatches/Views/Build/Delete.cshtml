@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PokemonHubXWatches.ViewModels.BuildViewModel
+
 @{
+    ViewData["Title"] = "Delete Build";
 }
+
+<div class="container mt-4">
+    <h1>Delete Build</h1>
+    <div class="alert alert-danger">
+        <h4>Are you sure you want to delete this Build?</h4>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">@Model.BuildName</h2>
+            <dl class="row">
+                <dt class="col-sm-4">Pokemon</dt>
+                <dd class="col-sm-8">@Model.Pokemon.PokemonName</dd>
+
+                <dt class="col-sm-4">User</dt>
+                <dd class="col-sm-8">@Model.User.UserName</dd>
+
+                <dt class="col-sm-4">Updated HP</dt>
+                <dd class="col-sm-8">@Model.PokemonUpdatedHP</dd>
+
+                <dt class="col-sm-4">Updated Attack</dt>
+                <dd class="col-sm-8">@Model.PokemonUpdatedAttack</dd>
+
+                <dt class="col-sm-4">Updated Defense</dt>
+                <dd class="col-sm-8">@Model.PokemonUpdatedDefense</dd>
+
+                <dt class="col-sm-4">Updated Special Attack</dt>
+                <dd class="col-sm-8">@Model.PokemonUpdatedSpAttack</dd>
+
+                <dt class="col-sm-4">Updated Special Defense</dt>
+                <dd class="col-sm-8">@Model.PokemonUpdatedSpDefense</dd>
+
+                <dt class="col-sm-4">Updated CDR</dt>
+                <dd class="col-sm-8">@Model.PokemonUpdatedCDR%</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="BuildId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

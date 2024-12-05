@@ -1,5 +1,90 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<PokemonHubXWatches.ViewModels.BuildViewModel>
+
 @{
+    ViewData["Title"] = "Pokemon Builds";
 }
+
+<div class="container mt-4">
+    <h1>Pokemon Builds</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Build</a>
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@item.Pokemon.PokemonImage" class="card-img-top" alt="@item.Pokemon.PokemonName">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.BuildName</h5>
+                        <p class="card-text">
+                            <strong>Pokemon:</strong> @item.Pokemon.PokemonName
+                        </p>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span>HP</span>
+                                <span>@item.PokemonUpdatedHP</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Attack</span>
+                                <span>@item.PokemonUpdatedAttack</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Defense</span>
+                                <span>@item.PokemonUpdatedDefense</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Sp.Atk</span>
+                                <span>@item.PokemonUpdatedSpAttack</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Sp.Def</span>
+                                <span>@item.PokemonUpdatedSpDefense</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>CDR</span>
+                                <span>@item.PokemonUpdatedCDR%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Details" asp-route-id="@item.BuildId" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.BuildId" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.BuildId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+        .stat-item span:first-child {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .stat-item span:last-child {
+            color: #28a745;
+        }
+</style>
