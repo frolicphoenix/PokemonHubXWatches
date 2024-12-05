@@ -4,10 +4,12 @@ namespace PokemonHubXWatches.Interfaces
 {
     public interface IHeldItemService
     {
-        Task<IEnumerable<HeldItem>> GetAllAsync();
-        Task<HeldItem?> GetByIdAsync(int id);
-        Task AddAsync(HeldItem heldItem);
-        Task UpdateAsync(HeldItem heldItem);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<HeldItem>> GetAllHeldItemsAsync();
+        Task<HeldItem> GetHeldItemByIdAsync(int id);
+        Task<HeldItem> CreateHeldItemAsync(HeldItem heldItem);
+        Task<HeldItem> UpdateHeldItemAsync(int id, HeldItem heldItem);
+        Task<bool> DeleteHeldItemAsync(int id);
+        Task<IEnumerable<Build>> GetBuildsForHeldItemAsync(int heldItemId);
+        Task<bool> ValidateHeldItemExistsAsync(int id);
     }
 }

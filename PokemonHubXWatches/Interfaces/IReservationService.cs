@@ -4,10 +4,14 @@ namespace PokemonHubXWatches.Interfaces
 {
     public interface IReservationService
     {
-        Task<IEnumerable<Reservation>> GetAllAsync();
-        Task<Reservation?> GetByIdAsync(int id);
-        Task AddAsync(Reservation reservation);
-        Task UpdateAsync(Reservation reservation);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<Reservation>> GetAllReservationsAsync();
+        Task<Reservation?> GetReservationByIdAsync(int id);
+        Task<Reservation> CreateReservationAsync(Reservation reservation);
+        Task<Reservation?> UpdateReservationAsync(int id, Reservation reservation);
+        Task<bool> DeleteReservationAsync(int id);
+        Task<IEnumerable<Reservation>> GetReservationsByUserIdAsync(int userId);
+        Task<IEnumerable<Reservation>> GetReservationsByWatchIdAsync(int watchId);
+        Task<bool> ValidateReservationExistsAsync(int id);
+        Task<bool> IsWatchAvailableForPeriodAsync(int watchId, DateTime startDate, DateTime endDate, int? excludeReservationId = null);
     }
 }

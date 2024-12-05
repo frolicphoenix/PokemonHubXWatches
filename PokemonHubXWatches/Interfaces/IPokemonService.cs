@@ -4,10 +4,13 @@ namespace PokemonHubXWatches.Interfaces
 {
     public interface IPokemonService
     {
-        Task<IEnumerable<Pokemon>> GetAllAsync();
-        Task<Pokemon?> GetByIdAsync(int id);
-        Task AddAsync(Pokemon pokemon);
-        Task UpdateAsync(Pokemon pokemon);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<Pokemon>> GetAllPokemonAsync();
+        Task<Pokemon> GetPokemonByIdAsync(int id);
+        Task<Pokemon> CreatePokemonAsync(Pokemon pokemon);
+        Task<Pokemon> UpdatePokemonAsync(int id, Pokemon pokemon);
+        Task<bool> DeletePokemonAsync(int id);
+        Task<IEnumerable<Pokemon>> GetTopPokemonAsync(int count);
+        Task<IEnumerable<HeldItem>> GetHeldItemsForPokemonAsync(int pokemonId);
+        Task<bool> ValidatePokemonExistsAsync(int id);
     }
 }

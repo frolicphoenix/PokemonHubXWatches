@@ -1,37 +1,122 @@
-﻿@model PokemonHubXWatches.ViewModels.PokemonDetailsViewModel
+﻿@model PokemonHubXWatches.ViewModels.PokemonViewModel
 
-<h1>@Model.Pokemon.PokemonName</h1>
-<img src="@Model.Pokemon.PokemonImage" alt="@Model.Pokemon.PokemonName" />
-<p><strong>Role:</strong> @Model.Pokemon.PokemonRole</p>
-<p><strong>Style:</strong> @Model.Pokemon.PokemonStyle</p>
-<p><strong>Stats:</strong> HP: @Model.Pokemon.PokemonHP, Attack: @Model.Pokemon.PokemonAttack, Defense: @Model.Pokemon.PokemonDefense, Sp. Attack: @Model.Pokemon.PokemonSpAttack, Sp. Defense: @Model.Pokemon.PokemonSpDefense, CDR: @Model.Pokemon.PokemonCDR</p>
-
-<h2>Add Held Items</h2>
-<form asp-action="Create" asp-controller="Build">
-    <input type="hidden" asp-for="Pokemon.PokemonId" />
-    <div>
-        @for (int i = 0; i < Model.AvailableHeldItems.Count(); i++)
-        {
-            <div>
-                <input type="checkbox" name="SelectedHeldItemIds" value="@Model.AvailableHeldItems.ElementAt(i).HeldItemId" />
-                <label>@Model.AvailableHeldItems.ElementAt(i).HeldItemName</label>
-            </div>
-        }
-    </div>
-    <button type="submit" formaction="/Build/CalculateStats" class="btn btn-secondary">Check Stats</button>
-    <button type="submit" class="btn btn-primary">Save Build</button>
-</form>
-
-@if (Model.UpdatedStats != null)
-{
-    <h3>Updated Stats</h3>
-    <table>
-        <tr><th>HP</th><td>@Model.UpdatedStats.PokemonUpdatedHP</td></tr>
-        <tr><th>Attack</th><td>@Model.UpdatedStats.PokemonUpdatedAttack</td></tr>
-        <tr><th>Defense</th><td>@Model.UpdatedStats.PokemonUpdatedDefense</td></tr>
-        <tr><th>Sp. Attack</th><td>@Model.UpdatedStats.PokemonUpdatedSpAttack</td></tr>
-        <tr><th>Sp. Defense</th><td>@Model.UpdatedStats.PokemonUpdatedSpDefense</td></tr>
-        <tr><th>CDR</th><td>@Model.UpdatedStats.PokemonUpdatedCDR</td></tr>
-    </table>
+@{
+    ViewData["Title"] = "Pokemon Details";
 }
-<a asp-action="Index" class="btn btn-secondary">Back to Gallery</a>
+
+<div class="container mt-4">
+    <h1>Pokemon Details</h1>
+
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@Model.PokemonImage" class="img-fluid rounded-start" alt="@Model.PokemonName">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">@Model.PokemonName</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Role</dt>
+                                <dd class="col-sm-8">@Model.PokemonRole</dd>
+
+                                <dt class="col-sm-4">Style</dt>
+                                <dd class="col-sm-8">@Model.PokemonStyle</dd>
+
+                                <dt class="col-sm-4">Description</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Stats</h4>
+                            <div class="stats-container">
+                                <div class="stat-bar">
+                                    <span>HP</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: @(Model.PokemonHP/10)%">
+                                            @Model.PokemonHP
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Attack</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" style="width: @(Model.PokemonAttack/10)%">
+                                            @Model.PokemonAttack
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Defense</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" style="width: @(Model.PokemonDefense/10)%">
+                                            @Model.PokemonDefense
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Sp.Attack</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" style="width: @(Model.PokemonSpAttack/10)%">
+                                            @Model.PokemonSpAttack
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Sp.Defense</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" style="width: @(Model.PokemonSpDefense/10)%">
+                                            @Model.PokemonSpDefense
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>CDR</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-secondary" style="width: @Model.PokemonCDR%">
+                                            @Model.PokemonCDR%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.PokemonId" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+<style>
+    .stats-container {
+        margin-top: 20px;
+    }
+
+    .stat-bar {
+        margin-bottom: 15px;
+    }
+
+        .stat-bar span {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+
+    .progress {
+        display: inline-block;
+        width: calc(100% - 110px);
+        height: 25px;
+    }
+
+    .progress-bar {
+        line-height: 25px;
+        color: white;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    }
+</style>

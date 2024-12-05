@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-PokemonHubXWatches-d37921c3-c47b-4622-93be-063c3ce90342</UserSecretsId>
+    <UserSecretsId>aspnet-PokemonHubXWatches-4e09af28-8b71-4b20-aabd-c1f5bea36ede</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,14 +13,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\NewFolder\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

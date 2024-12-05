@@ -13,36 +13,50 @@ namespace PokemonHubXWatches.Models
         public string PokemonName { get; set; }
 
         [Required(ErrorMessage = "Pokemon role is required.")]
+        [StringLength(50, ErrorMessage = "Role cannot exceed 50 characters.")]
         public string PokemonRole { get; set; } // Example: Attacker, Defender
 
         [Required(ErrorMessage = "Pokemon style is required.")]
+        [StringLength(50, ErrorMessage = "Style cannot exceed 50 characters.")]
         public string PokemonStyle { get; set; } // Example: Melee, Ranged
 
+        [Required(ErrorMessage = "Description is required.")]
+        [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
+        public string Description { get; set; }
+
+        [Required]
         [Range(1, 9999, ErrorMessage = "HP must be between 1 and 9999.")]
         public int PokemonHP { get; set; }
 
+        [Required]
         [Range(1, 999, ErrorMessage = "Attack must be between 1 and 999.")]
         public int PokemonAttack { get; set; }
 
+        [Required]
         [Range(1, 999, ErrorMessage = "Defense must be between 1 and 999.")]
         public int PokemonDefense { get; set; }
 
+        [Required]
         [Range(1, 999, ErrorMessage = "Special Attack must be between 1 and 999.")]
         public int PokemonSpAttack { get; set; }
 
+        [Required]
         [Range(1, 999, ErrorMessage = "Special Defense must be between 1 and 999.")]
         public int PokemonSpDefense { get; set; }
 
+        [Required]
         [Range(0, 100, ErrorMessage = "Cooldown Reduction must be between 0 and 100.")]
         public int PokemonCDR { get; set; }
 
         [Required(ErrorMessage = "Image URL is required.")]
-        public string PokemonImage { get; set; } // URL or Path to the image file
+        public string PokemonImage { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
 
         // Relationships
         public ICollection<Build> Builds { get; set; } = new List<Build>();
-        public int? WatchID { get; set; }
-        public virtual Watch? ThemedWatch { get; set; }
+        public ICollection<Watch> ThemedWatches { get; set; } = new List<Watch>();
     }
 
     public class PokemonDTO
@@ -51,6 +65,7 @@ namespace PokemonHubXWatches.Models
         public string PokemonName { get; set; }
         public string PokemonRole { get; set; }
         public string PokemonStyle { get; set; }
+        public string Description { get; set; }
         public int PokemonHP { get; set; }
         public int PokemonAttack { get; set; }
         public int PokemonDefense { get; set; }
@@ -58,6 +73,8 @@ namespace PokemonHubXWatches.Models
         public int PokemonSpDefense { get; set; }
         public int PokemonCDR { get; set; }
         public string PokemonImage { get; set; }
-        public WatchDTO? ThemedWatch { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public ICollection<WatchDTO> ThemedWatches { get; set; }
     }
 }

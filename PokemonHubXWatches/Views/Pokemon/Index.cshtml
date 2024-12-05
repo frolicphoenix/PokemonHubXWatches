@@ -1,31 +1,91 @@
-﻿@model IEnumerable<PokemonHubXWatches.Models.Pokemon>
+﻿@model IEnumerable<PokemonHubXWatches.ViewModels.PokemonViewModel>
 
-<h1>Pokémon List</h1>
+@{
+    ViewData["Title"] = "Pokemon List";
+}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Style</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var pokemon in Model)
+<div class="container mt-4">
+    <h1>Pokemon List</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Pokemon</a>
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>@pokemon.PokemonName</td>
-                <td>@pokemon.PokemonRole</td>
-                <td>@pokemon.PokemonStyle</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@pokemon.PokemonId">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@pokemon.PokemonId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@pokemon.PokemonId">Delete</a>
-                </td>
-            </tr>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@item.PokemonImage" class="card-img-top" alt="@item.PokemonName">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.PokemonName</h5>
+                        <p class="card-text">
+                            <strong>Role:</strong> @item.PokemonRole<br />
+                            <strong>Style:</strong> @item.PokemonStyle
+                        </p>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span>HP</span>
+                                <span>@item.PokemonHP</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Attack</span>
+                                <span>@item.PokemonAttack</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Defense</span>
+                                <span>@item.PokemonDefense</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Sp.Atk</span>
+                                <span>@item.PokemonSpAttack</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Sp.Def</span>
+                                <span>@item.PokemonSpDefense</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>CDR</span>
+                                <span>@item.PokemonCDR%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Details" asp-route-id="@item.PokemonId" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.PokemonId" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.PokemonId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
 
-<a asp-action="Create" class="btn btn-primary">Create New Pokémon</a>
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .stat-item span:first-child {
+        font-weight: bold;
+        font-size: 0.9em;
+    }
+
+    .stat-item span:last-child {
+        color: #007bff;
+    }
+</style>
